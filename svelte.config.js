@@ -17,7 +17,7 @@ const config = {
 			strict: true
 		}),
 		paths: {
-			base: process.env.NODE_ENV === 'production' ? '/MyStories' : ''
+			base: process.env.NODE_ENV === 'development' ? '' : '/MyStories'
 		},
 		prerender: {
 			handleHttpError: ({ path, referrer, message }) => {
