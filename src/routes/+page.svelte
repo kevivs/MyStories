@@ -8,11 +8,18 @@
 	let currentSceneIndex = 0;
 	let isNavigating = false;
 	let mounted = false;
+	let jsWorking = 'JavaScript is loading...';
+
+	// Test JavaScript execution immediately
+	jsWorking = 'JavaScript is working!';
+	console.log('Script block executed');
 
 	$: currentScene = storyScenes[currentSceneIndex] || storyScenes[0];
 	$: isLastScene = currentSceneIndex === storyScenes.length - 1;
 
 	function advanceStory() {
+		console.log('Button clicked!');
+
 		if (isNavigating) return; // Prevent double clicks
 
 		isNavigating = true;
@@ -33,6 +40,7 @@
 
 	onMount(() => {
 		mounted = true;
+		jsWorking = 'onMount executed!';
 		console.log('App mounted');
 		console.log('Base path:', base);
 		console.log('Total scenes:', storyScenes.length);
@@ -41,15 +49,19 @@
 </script>
 
 <main>
-	{#if mounted}
-		<div class="debug-info">
+	<div class="debug-info">
+		<p>JS Status: {jsWorking}</p>
+		{#if mounted}
 			<p>
 				Scene: {currentSceneIndex + 1}/{storyScenes.length} - {currentScene?.title || 'Loading...'}
 			</p>
 			<p>Base: {base}</p>
 			<p>Location: {window.location.hostname}{window.location.pathname}</p>
-		</div>
-	{/if}
+		{:else}
+			<p>onMount not executed yet</p>
+			<p>Base (SSR): {base}</p>
+		{/if}
+	</div>
 
 	{#if currentScene}
 		{#key currentScene.id}
