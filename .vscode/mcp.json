@@ -1,0 +1,9 @@
+{
+	"servers": {
+		"my-mcp-server-b9dfd7dc": {
+			"url": "https://svelte-llm.stanislav.garden/mcp/mcp",
+			"type": "http"
+		}
+	},
+	"inputs": []
+}
