@@ -11,11 +11,21 @@ export interface StoryScene {
 function getImagePath(imagePath: string): string {
 	// Check if we're in a browser environment
 	if (typeof window !== 'undefined') {
-		// Check if we're on GitHub Pages (pathname starts with /MyStories)
-		const isGitHubPages = window.location.pathname.startsWith('/MyStories');
-		return isGitHubPages ? `/MyStories${imagePath}` : imagePath;
+		// Check if we're on GitHub Pages by looking at the hostname and pathname
+		const isGitHubPages =
+			window.location.hostname.includes('github.io') ||
+			window.location.pathname.includes('/MyStories/');
+
+		// On GitHub Pages, always use the full path
+		if (isGitHubPages) {
+			return `/MyStories${imagePath}`;
+		}
+
+		// For local development, use relative path
+		return imagePath;
 	}
-	// Server-side rendering fallback
+
+	// Server-side rendering: assume production (GitHub Pages)
 	return `/MyStories${imagePath}`;
 }
 

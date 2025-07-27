@@ -1,6 +1,15 @@
 import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
+// Determine if we're building for GitHub Pages
+const isProduction = process.env.NODE_ENV === 'production' || process.argv.includes('build');
+const basePath = isProduction ? '/MyStories' : '';
+
+console.log('SvelteKit Config:');
+console.log('- NODE_ENV:', process.env.NODE_ENV);
+console.log('- Is Production:', isProduction);
+console.log('- Base Path:', basePath);
+
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	// Consult https://svelte.dev/docs/kit/integrations
@@ -12,12 +21,12 @@ const config = {
 			// these options are set automatically — see below
 			pages: 'build',
 			assets: 'build',
-			fallback: 'undefined',
+			fallback: undefined,
 			precompress: false,
 			strict: true
 		}),
 		paths: {
-			base: process.env.NODE_ENV === 'development' ? '' : '/MyStories'
+			base: basePath
 		},
 		prerender: {
 			handleHttpError: ({ path, referrer, message }) => {

@@ -8,6 +8,7 @@
 	let currentSceneIndex = 0;
 	let isNavigating = false;
 	let debugInfo = '';
+	let runtimeBasePath = '';
 
 	$: currentScene = storyScenes[currentSceneIndex] || storyScenes[0];
 	$: isLastScene = currentSceneIndex === storyScenes.length - 1;
@@ -41,11 +42,21 @@
 	}
 
 	onMount(() => {
+		// Detect the correct base path at runtime
+		const isGitHubPages =
+			window.location.hostname.includes('github.io') ||
+			window.location.pathname.includes('/MyStories/');
+
+		runtimeBasePath = isGitHubPages ? '/MyStories' : '';
+
 		console.log('App mounted');
-		console.log('Base path:', base);
+		console.log('SvelteKit base path:', base);
+		console.log('Runtime base path:', runtimeBasePath);
 		console.log('Story scenes:', storyScenes.length);
 		console.log('First scene:', storyScenes[0]?.title);
 		console.log('Window location:', window.location.href);
+		console.log('Hostname:', window.location.hostname);
+		console.log('Pathname:', window.location.pathname);
 
 		// Check if images can load
 		if (storyScenes[0]?.imageSrc) {
@@ -55,7 +66,7 @@
 			img.src = storyScenes[0].imageSrc;
 		}
 
-		debugInfo = `Loaded: ${storyScenes.length} scenes, base: ${base}`;
+		debugInfo = `Loaded: ${storyScenes.length} scenes, svelte base: ${base}, runtime base: ${runtimeBasePath}`;
 	});
 </script>
 
@@ -65,7 +76,10 @@
 		<p>
 			Scene: {currentSceneIndex + 1}/{storyScenes.length} - {currentScene?.title || 'Loading...'}
 		</p>
-		<p>Base path: {base}</p>
+		<p>SvelteKit base: {base}</p>
+		<p>Runtime base: {runtimeBasePath}</p>
+		<p>Hostname: {typeof window !== 'undefined' ? window.location.hostname : 'SSR'}</p>
+		<p>Pathname: {typeof window !== 'undefined' ? window.location.pathname : 'SSR'}</p>
 	</div>
 
 	{#if currentScene}
