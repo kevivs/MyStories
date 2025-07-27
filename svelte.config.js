@@ -12,13 +12,24 @@ const config = {
 			// these options are set automatically — see below
 			pages: 'build',
 			assets: 'build',
-			fallback: 'undefined',
+			fallback: 'index.html',
 			precompress: false,
 			strict: true
 		}),
-    paths: {
-      base: '/MyStories' // Adjust this if deploying to a subfolder
-    }
+		paths: {
+			base: process.env.NODE_ENV === 'production' ? '/MyStories' : '',
+			assets: process.env.NODE_ENV === 'production' ? '/MyStories' : ''
+		},
+		prerender: {
+			handleHttpError: ({ path, referrer, message }) => {
+				// ignore deliberate link to shiny 404 page
+				if (path === '/not-found' && referrer === '/blog/how-we-built-our-404-page') {
+					return;
+				}
+				// otherwise fail the build
+				throw new Error(message);
+			}
+		}
 	}
 };
 
