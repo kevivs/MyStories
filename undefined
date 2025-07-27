@@ -5,12 +5,12 @@
 		<link rel="icon" href="/MyStories/favicon.svg" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		
-		<link rel="modulepreload" href="/MyStories/_app/immutable/entry/start.BWZBkHtk.js">
-		<link rel="modulepreload" href="/MyStories/_app/immutable/chunks/yd0-8ned.js">
+		<link rel="modulepreload" href="/MyStories/_app/immutable/entry/start.DxTb0bbs.js">
+		<link rel="modulepreload" href="/MyStories/_app/immutable/chunks/vSj5ixVb.js">
 		<link rel="modulepreload" href="/MyStories/_app/immutable/chunks/BAGlyTSf.js">
 		<link rel="modulepreload" href="/MyStories/_app/immutable/chunks/D8UOkfNi.js">
 		<link rel="modulepreload" href="/MyStories/_app/immutable/chunks/qmfzoqcS.js">
-		<link rel="modulepreload" href="/MyStories/_app/immutable/entry/app.zZbikAnI.js">
+		<link rel="modulepreload" href="/MyStories/_app/immutable/entry/app.Bm2riMNa.js">
 		<link rel="modulepreload" href="/MyStories/_app/immutable/chunks/DsnmJJEf.js">
 		<link rel="modulepreload" href="/MyStories/_app/immutable/chunks/CEjHy1qN.js">
 	</head>
@@ -18,7 +18,7 @@
 		<div style="display: contents">
 			<script>
 				{
-					__sveltekit_1dfsuyh = {
+					__sveltekit_1pxrhwd = {
 						base: "/MyStories",
 						assets: "/MyStories"
 					};
@@ -26,8 +26,8 @@
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("/MyStories/_app/immutable/entry/start.BWZBkHtk.js"),
-						import("/MyStories/_app/immutable/entry/app.zZbikAnI.js")
+						import("/MyStories/_app/immutable/entry/start.DxTb0bbs.js"),
+						import("/MyStories/_app/immutable/entry/app.Bm2riMNa.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element);
 					});
