@@ -5,12 +5,12 @@
 		<link rel="icon" href="/MyStories/favicon.svg" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		
-		<link rel="modulepreload" href="/MyStories/_app/immutable/entry/start.CrKhknzI.js">
-		<link rel="modulepreload" href="/MyStories/_app/immutable/chunks/HHwBpxFm.js">
+		<link rel="modulepreload" href="/MyStories/_app/immutable/entry/start.E3zRqANl.js">
+		<link rel="modulepreload" href="/MyStories/_app/immutable/chunks/B8h5sT87.js">
 		<link rel="modulepreload" href="/MyStories/_app/immutable/chunks/UYt86Dtz.js">
 		<link rel="modulepreload" href="/MyStories/_app/immutable/chunks/BeKTMQs8.js">
-		<link rel="modulepreload" href="/MyStories/_app/immutable/chunks/CQiSp13D.js">
-		<link rel="modulepreload" href="/MyStories/_app/immutable/entry/app.C1la8z2D.js">
+		<link rel="modulepreload" href="/MyStories/_app/immutable/chunks/BzfgtkUv.js">
+		<link rel="modulepreload" href="/MyStories/_app/immutable/entry/app.D5S0rqhZ.js">
 		<link rel="modulepreload" href="/MyStories/_app/immutable/chunks/DsnmJJEf.js">
 		<link rel="modulepreload" href="/MyStories/_app/immutable/chunks/chg8BQ0A.js">
 	</head>
@@ -18,7 +18,7 @@
 		<div style="display: contents">
 			<script>
 				{
-					__sveltekit_phaqjc = {
+					__sveltekit_16d3gq8 = {
 						base: "/MyStories",
 						assets: "/MyStories"
 					};
@@ -26,8 +26,8 @@
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("/MyStories/_app/immutable/entry/start.CrKhknzI.js"),
-						import("/MyStories/_app/immutable/entry/app.C1la8z2D.js")
+						import("/MyStories/_app/immutable/entry/start.E3zRqANl.js"),
+						import("/MyStories/_app/immutable/entry/app.D5S0rqhZ.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element);
 					});
