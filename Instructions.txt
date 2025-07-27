@@ -1,0 +1,324 @@
+Using the provided images and story, we can create an immersive, click-through web experience. We'll build a static website using the Svelte framework, which is perfect for this kind of project due to its simplicity and performance.
+
+The final product will be a single-page application where the user clicks a "Next" button to advance through the five acts of the story, with each act displaying its corresponding image and text.
+
+Here is the complete Svelte project.
+
+Project Goal & Structure
+
+Framework: SvelteKit (the official Svelte application framework).
+
+Deployment: Configured as a static site, meaning you can host the final build folder on any static host like GitHub Pages, Netlify, or Vercel.
+
+Interaction: A user starts at the beginning of the story. They click a button to proceed to the next scene. The final scene's button will offer to "Restart" the experience.
+
+Visuals: Each scene will feature one of the powerful key images you provided, paired with the story text. We'll use transitions to make the scene changes smooth and atmospheric.
+
+Step 1: Setting Up Your Svelte Project - already done.
+Here is the file structure that has already been created in the folder.
+
+Please populate these files in the next step.
+
+Generated code
+MyStories/
+├── static/
+│   ├── 01-arrival/ (image files)
+│   ├── 02-rising/ (image files)
+│   ├── 03-climax/ (image files)
+│   ├── 04-falling/ (image files)
+│   └── 05-resolution/ (image files)
+├── src/
+│   ├── lib/
+│   │   ├── components/
+│   │   │   └── Scene.svelte
+│   │   └── storyData.js
+│   ├── routes/
+│   │   ├── +layout.svelte
+│   │   └── +page.svelte
+│   └── app.html
+├── svelte.config.js
+└── package.json
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+IGNORE_WHEN_COPYING_END
+
+Step 3: Prepare Your Images - already done.
+
+From the images you provided, I've selected the most impactful one for each story section.
+
+Create a folder named static in the root of your project. - already done.
+
+Step 4: Writing the Code
+1. Most files are already present.
+2. Static adapter is set and this minimal application is already running correctly.
+3. src/lib/storyData.js
+
+This file holds all our story content, keeping it neatly separated from the presentation logic.
+
+Generated javascript
+// src/lib/storyData.js
+
+export const storyScenes = [
+	{
+		id: 1,
+		title: 'Exposition – Arrival at the Estate',
+		imageSrc: '/01-arrival.png',
+		storyText: `Aditya Verma, a landscape architect from the city, receives an unusual contract — to restore the gardens of an old estate inherited by a mysterious absentee owner. The estate, known locally as Rasa Manor, sits at the outskirts of a forgotten town. The assignment is generous in payment but comes with one condition: he must stay on the premises. The caretaker leaves only one warning: “Never step on the chessboard after midnight.”`
+	},
+	{
+		id: 2,
+		title: 'Rising Tension – The Garden’s Rules',
+		imageSrc: '/02-rising-tension.png',
+		storyText: `Each day, Aditya documents the garden’s strange layout: paths that change subtly overnight, and statues that seem to alter their position every morning. His nights are worse. Whispers ride the wind, and the tall lamppost flickers like a heartbeat. He hears soft footsteps, though no one should be there. And every evening, the statues seem closer.`
+	},
+	{
+		id: 3,
+		title: 'Climax – The Midnight Move',
+		imageSrc: '/03-climax.png',
+		storyText: `Curiosity wins. At exactly midnight, Aditya steps onto the chessboard. The garden shifts. The light from the lamppost expands, revealing grotesque forms in the darkness—not statues, but frozen people, their faces twisted in agony. A voice booms from nowhere and everywhere: “White to move.” The garden has become the board. Aditya is now a pawn.`
+	},
+	{
+		id: 4,
+		title: 'Falling Action – The Pieces in Place',
+		imageSrc: '/04-falling-action.png',
+		storyText: `Aditya tries to escape, but each path loops back to the center. The garden grows wild, revealing ancient roots and stone faces watching him. He finds old journals in a gazebo from past victims—a botanist, a journalist, a sculptor. Each left cryptic diagrams of the board. He’s not the first. He won’t be the last.`
+	},
+	{
+		id: 5,
+		title: 'Resolution – Checkmate or Repetition',
+		imageSrc: '/05-resolution.png',
+		storyText: `At dawn, the garden resets. The statues return to their previous positions, the chessboard pristine again. The caretaker greets the next visitor with the same words: “Never step on the chessboard after midnight.” Aditya now stands near the lamppost. A new statue. His eyes scream silently. The garden waits for the next move.`
+	}
+];
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+JavaScript
+IGNORE_WHEN_COPYING_END
+4. src/routes/+layout.svelte
+
+This file applies global styles to every page, creating our dark, atmospheric theme.
+
+Generated svelte
+<!-- src/routes/+layout.svelte -->
+<script>
+	import '@fontsource/crimson-pro'; // A nice, serif font for storytelling
+</script>
+
+<slot />
+
+<style>
+	:global(body) {
+		background-color: #111;
+		color: #e0e0e0;
+		font-family: 'Crimson Pro', serif;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		min-height: 100vh;
+	}
+</style>
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Svelte
+IGNORE_WHEN_COPYING_END
+
+Note: We're using a nice Google Font here. Let's add it to the project.
+In your terminal, run:
+
+Generated bash
+npm install @fontsource/crimson-pro
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Bash
+IGNORE_WHEN_COPYING_END
+5. src/lib/components/Scene.svelte
+
+This is our reusable component for displaying one scene. It handles the layout of the image and text.
+
+Generated svelte
+<!-- src/lib/components/Scene.svelte -->
+<script>
+	export let scene;
+</script>
+
+<div class="scene-container">
+	<img src={scene.imageSrc} alt={scene.title} class="scene-image" />
+	<div class="text-content">
+		<h2>{scene.title}</h2>
+		<p>{scene.storyText}</p>
+	</div>
+</div>
+
+<style>
+	.scene-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		max-width: 900px;
+		width: 100%;
+		border: 1px solid #333;
+		background-color: #1a1a1a;
+		border-radius: 8px;
+		overflow: hidden;
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+	}
+
+	.scene-image {
+		width: 100%;
+		height: auto;
+		max-height: 60vh;
+		object-fit: cover;
+		display: block;
+	}
+
+	.text-content {
+		padding: 2rem;
+	}
+
+	h2 {
+		font-size: 1.5rem;
+		color: #e6bf83; /* A gold-like accent color */
+		margin-bottom: 1rem;
+		font-weight: 600;
+	}
+
+	p {
+		font-size: 1.2rem;
+		line-height: 1.6;
+		color: #ccc;
+		max-width: 65ch; /* Optimal reading line length */
+		margin: 0 auto;
+	}
+</style>
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Svelte
+IGNORE_WHEN_COPYING_END
+6. src/routes/+page.svelte
+
+This is the main page. It manages the story's state and orchestrates the scene transitions.
+
+Generated svelte
+<!-- src/routes/+page.svelte -->
+<script>
+	import { storyScenes } from '$lib/storyData.js';
+	import Scene from '$lib/components/Scene.svelte';
+	import { fade } from 'svelte/transition';
+
+	let currentSceneIndex = 0;
+
+	// This is a reactive declaration. It automatically updates when currentSceneIndex changes.
+	$: currentScene = storyScenes[currentSceneIndex];
+	$: isLastScene = currentSceneIndex === storyScenes.length - 1;
+
+	function advanceStory() {
+		if (isLastScene) {
+			currentSceneIndex = 0; // Restart the story
+		} else {
+			currentSceneIndex++;
+		}
+	}
+</script>
+
+<main>
+	<!--
+    The #key block is crucial. It tells Svelte to destroy the old component
+    and create a new one when the key (currentScene.id) changes.
+    This ensures our fade transition plays on every scene change.
+  -->
+	{#key currentScene.id}
+		<div in:fade={{ duration: 800, delay: 200 }} out:fade={{ duration: 400 }}>
+			<Scene {scene={currentScene} />
+		</div>
+	{/key}
+
+	<button on:click={advanceStory}>
+		{#if isLastScene}
+			Restart
+		{:else}
+			Next
+		{/if}
+	</button>
+</main>
+
+<style>
+	main {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 2rem;
+		padding: 2rem;
+	}
+
+	button {
+		background-color: #e6bf83;
+		color: #111;
+		border: none;
+		padding: 12px 30px;
+		font-family: 'Crimson Pro', serif;
+		font-size: 1.2rem;
+		font-weight: bold;
+		border-radius: 5px;
+		cursor: pointer;
+		transition: background-color 0.3s ease, transform 0.2s ease;
+	}
+
+	button:hover {
+		background-color: #f0d4a3;
+		transform: scale(1.05);
+	}
+
+	button:active {
+		transform: scale(1);
+	}
+</style>
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Svelte
+IGNORE_WHEN_COPYING_END
+Step 5: Run and Build Your Project
+
+You are all set!
+
+To see your project in development mode:
+Open your terminal in the project directory and run:
+
+Generated bash
+npm run dev
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Bash
+IGNORE_WHEN_COPYING_END
+
+Then, open your web browser and go to http://localhost:5173. You should see the first scene of your story.
+
+To build the final static website:
+When you are happy with how it looks, stop the dev server (Ctrl + C) and run:
+
+Generated bash
+npm run build
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Bash
+IGNORE_WHEN_COPYING_END
+
+This command will create a build folder in your project root. This folder contains the complete, static website (index.html, CSS, JS, and your images). You can now upload the contents of this build folder to any static hosting service to publish your interactive story online.

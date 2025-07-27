@@ -31,7 +31,11 @@
 	},
 	"pnpm": {
 		"onlyBuiltDependencies": [
+			"@tailwindcss/oxide",
 			"esbuild"
 		]
+	},
+	"dependencies": {
+		"@fontsource/crimson-pro": "^5.2.6"
 	}
 }

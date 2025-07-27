@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@fontsource/crimson-pro':
+        specifier: ^5.2.6
+        version: 5.2.6
     devDependencies:
       '@sveltejs/adapter-static':
         specifier: ^3.0.8
@@ -212,6 +216,9 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@fontsource/crimson-pro@5.2.6':
+    resolution: {integrity: sha512-8YXsj+2xPGaapBmTQk52eU+9AnrTVo8Ya+3ZLzjRCH1wk5vUQsUYjg/5xqYZvSP2M8sbZduhoBi9ri7jAZvpWw==, tarball: https://registry.npmmirror.com/@fontsource/crimson-pro/-/crimson-pro-5.2.6.tgz}
 
   '@isaacs/fs-minipass@4.0.1':
     resolution: {integrity: sha512-wgm9Ehl2jpeqP3zw/7mo3kRHFp5MEDhqAdwy1fTGkHAwnkGOVsgpvQhL8B5n1qlb01jV3n/bI0ZfZp5lWA1k4w==, tarball: https://registry.npmmirror.com/@isaacs/fs-minipass/-/fs-minipass-4.0.1.tgz}
@@ -989,6 +996,8 @@ snapshots:
 
   '@esbuild/win32-x64@0.25.8':
     optional: true
+
+  '@fontsource/crimson-pro@5.2.6': {}
 
   '@isaacs/fs-minipass@4.0.1':
     dependencies:
