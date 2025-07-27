@@ -7,8 +7,7 @@
 
 	let currentSceneIndex = 0;
 	let isNavigating = false;
-	let debugInfo = '';
-	let runtimeBasePath = '';
+	let mounted = false;
 
 	$: currentScene = storyScenes[currentSceneIndex] || storyScenes[0];
 	$: isLastScene = currentSceneIndex === storyScenes.length - 1;
@@ -17,70 +16,40 @@
 		if (isNavigating) return; // Prevent double clicks
 
 		isNavigating = true;
-		const oldIndex = currentSceneIndex;
 
-		try {
-			if (isLastScene) {
-				currentSceneIndex = 0;
-				debugInfo = `Restarted: ${oldIndex} -> 0`;
-			} else {
-				currentSceneIndex = Math.min(currentSceneIndex + 1, storyScenes.length - 1);
-				debugInfo = `Advanced: ${oldIndex} -> ${currentSceneIndex}`;
-			}
-
-			console.log('Navigation:', debugInfo);
-			console.log('Current scene:', currentScene?.title || 'No scene');
-		} catch (error) {
-			console.error('Navigation error:', error);
-			debugInfo = `Error: ${error}`;
+		if (isLastScene) {
+			currentSceneIndex = 0;
+		} else {
+			currentSceneIndex = currentSceneIndex + 1;
 		}
+
+		console.log('Navigated to scene:', currentSceneIndex + 1);
 
 		// Reset navigation flag after transition
 		setTimeout(() => {
 			isNavigating = false;
-		}, 1000);
+		}, 800);
 	}
 
 	onMount(() => {
-		// Detect the correct base path at runtime
-		const isGitHubPages =
-			window.location.hostname.includes('github.io') ||
-			window.location.pathname.includes('/MyStories/');
-
-		runtimeBasePath = isGitHubPages ? '/MyStories' : '';
-
+		mounted = true;
 		console.log('App mounted');
-		console.log('SvelteKit base path:', base);
-		console.log('Runtime base path:', runtimeBasePath);
-		console.log('Story scenes:', storyScenes.length);
-		console.log('First scene:', storyScenes[0]?.title);
-		console.log('Window location:', window.location.href);
-		console.log('Hostname:', window.location.hostname);
-		console.log('Pathname:', window.location.pathname);
-
-		// Check if images can load
-		if (storyScenes[0]?.imageSrc) {
-			const img = new Image();
-			img.onload = () => console.log('First image loaded successfully');
-			img.onerror = () => console.error('First image failed to load:', storyScenes[0].imageSrc);
-			img.src = storyScenes[0].imageSrc;
-		}
-
-		debugInfo = `Loaded: ${storyScenes.length} scenes, svelte base: ${base}, runtime base: ${runtimeBasePath}`;
+		console.log('Base path:', base);
+		console.log('Total scenes:', storyScenes.length);
+		console.log('Location:', window.location.href);
 	});
 </script>
 
 <main>
-	<div class="debug-info">
-		<p>Debug: {debugInfo}</p>
-		<p>
-			Scene: {currentSceneIndex + 1}/{storyScenes.length} - {currentScene?.title || 'Loading...'}
-		</p>
-		<p>SvelteKit base: {base}</p>
-		<p>Runtime base: {runtimeBasePath}</p>
-		<p>Hostname: {typeof window !== 'undefined' ? window.location.hostname : 'SSR'}</p>
-		<p>Pathname: {typeof window !== 'undefined' ? window.location.pathname : 'SSR'}</p>
-	</div>
+	{#if mounted}
+		<div class="debug-info">
+			<p>
+				Scene: {currentSceneIndex + 1}/{storyScenes.length} - {currentScene?.title || 'Loading...'}
+			</p>
+			<p>Base: {base}</p>
+			<p>Location: {window.location.hostname}{window.location.pathname}</p>
+		</div>
+	{/if}
 
 	{#if currentScene}
 		{#key currentScene.id}
@@ -98,7 +67,7 @@
 		{#if isLastScene}
 			Restart
 		{:else}
-			Next ({currentSceneIndex + 1}/{storyScenes.length})
+			Next
 		{/if}
 	</button>
 </main>

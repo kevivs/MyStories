@@ -7,26 +7,11 @@ export interface StoryScene {
 	storyText: string;
 }
 
-// Function to get the correct image path based on environment
+import { base } from '$app/paths';
+
+// Use SvelteKit's base path handling for proper asset resolution
 function getImagePath(imagePath: string): string {
-	// Check if we're in a browser environment
-	if (typeof window !== 'undefined') {
-		// Check if we're on GitHub Pages by looking at the hostname and pathname
-		const isGitHubPages =
-			window.location.hostname.includes('github.io') ||
-			window.location.pathname.includes('/MyStories/');
-
-		// On GitHub Pages, always use the full path
-		if (isGitHubPages) {
-			return `/MyStories${imagePath}`;
-		}
-
-		// For local development, use relative path
-		return imagePath;
-	}
-
-	// Server-side rendering: assume production (GitHub Pages)
-	return `/MyStories${imagePath}`;
+	return `${base}${imagePath}`;
 }
 
 export const storyScenes: StoryScene[] = [

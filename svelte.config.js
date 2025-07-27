@@ -1,14 +1,14 @@
 import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
-// Determine if we're building for GitHub Pages
-const isProduction = process.env.NODE_ENV === 'production' || process.argv.includes('build');
-const basePath = isProduction ? '/MyStories' : '';
+// Hardcode the base path for GitHub Pages deployment
+// For local dev, start with: npm run dev (which sets NODE_ENV=development)
+// For build/deploy, this will always use /MyStories
+const isDev = process.env.NODE_ENV === 'development';
+const basePath = isDev ? '' : '/MyStories';
 
-console.log('SvelteKit Config:');
-console.log('- NODE_ENV:', process.env.NODE_ENV);
-console.log('- Is Production:', isProduction);
-console.log('- Base Path:', basePath);
+console.log('SvelteKit Config - NODE_ENV:', process.env.NODE_ENV);
+console.log('SvelteKit Config - Base Path:', basePath);
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
